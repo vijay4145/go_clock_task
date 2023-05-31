@@ -1,5 +1,7 @@
 const express = require('express');
 const app = express();
+const userRoute = require('./src/routes/UserRoute');
+require('./src/service/Dbconnection');
 
 app.use(express.json());
 const cors = require('cors');
@@ -9,5 +11,7 @@ const corsOptions ={
     optionSuccessStatus:200
 }
 app.use(cors(corsOptions));
+
+app.use('/auth', userRoute);
 
 module.exports = app;
