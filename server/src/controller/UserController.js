@@ -35,14 +35,13 @@ module.exports = {
   login: async (req, res) => {
     const salt = bcrypt.genSaltSync(10);
     const secured_password = bcrypt.hashSync(req.body.password, salt);
-    console.log(secured_password);
 
     const result = UserDb.findOne({
       userId: req.body.userId,
     })
       .then((user) => {
         if (!user)
-          res.staus(404).json({
+          res.status(404).json({
             error: "User not found",
           });
         else {

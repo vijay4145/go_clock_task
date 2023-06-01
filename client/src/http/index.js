@@ -23,7 +23,7 @@ const api = async (endpoint, data,method)=>{
             else if(method === 'get') {
                 const response = await instance.get(endpoint);
                 return response;
-            }
+            }   
         }catch(err){
             console.log("error aaya h" + err);
             return err.response;
@@ -36,6 +36,7 @@ const api = async (endpoint, data,method)=>{
     
 
 export const postUserDetails = async (data)=> await api('/auth/createuser', data, 'post')
+export const login = async (data)=> await api('/auth/login', data, 'post')
 export default api;
 
 
