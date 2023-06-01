@@ -4,17 +4,20 @@ import {
   Route,
   Routes,} from 'react-router-dom';
 import { Homepage } from './pages/Homepage';
-import { Login } from './pages/Login';
+import { Login } from './components/auth/Login';
+import { AuthPage } from './pages/AuthPage';
+
 
 
 function App() {
+  
 
   return (
     <>
     <Router>
       <Routes>
         <Route exact path='/' element={<Homepage/>}/>
-        <Route exact path='/login' element={<Login/>}/>
+        <Route exact path='/auth' element={<AuthPage/>}/>
       </Routes>
     </Router>
     </>

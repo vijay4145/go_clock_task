@@ -1,0 +1,14 @@
+.bg1{
+    position: fixed;
+    background-image: linear-gradient(to right bottom, #4e1f87, #4e3499, #4d47ab, #4c59bb, #4b6bcb, #4e78d2, #5485d8, #5c92dd, #6c9ddb, #7da8d9, #90b2d7, #a3bcd4);
+    inset: 0;
+    background-color: white;
+    width: 60%;
+    height: 100vh;
+    clip-path: polygon(0% 100%, 0 0, 100% 0, 70% 100%);
+    z-index: -1;
+}
+
+.box-shadow{
+    box-shadow: 0 10px 50px -30px black;
+}
