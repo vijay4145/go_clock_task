@@ -7,8 +7,9 @@ export const Homepage = () => {
     const navigate = useNavigate();
     useEffect(() => {
       const storedToken = localStorage.getItem('token');
-      if(storedToken) setIsLogin(true);
-      else navigate('/auth');
+      // if(storedToken) setIsLogin(true);
+      // else 
+      navigate('/auth');
     }, [])
   return (
     <>

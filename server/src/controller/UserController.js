@@ -20,7 +20,7 @@ module.exports = {
           .save()
           .then((item) => {
             var token = jwt.sign(String(item._id), JWT_SECRET);
-            res.status(200).json(token);
+            res.status(200).json({token: token});
           })
           .catch((err) => {
             console.log(err);
