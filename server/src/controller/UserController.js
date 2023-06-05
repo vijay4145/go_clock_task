@@ -2,6 +2,7 @@ const JWT_SECRET = "Dooby";
 const bcrypt = require("bcryptjs");
 var jwt = require("jsonwebtoken");
 const UserDb = require("../models/User");
+const OrderDb = require('../models/Order');
 
 module.exports = {
   post: async (req, res) => {
@@ -75,4 +76,56 @@ module.exports = {
         });
       });
   },
+
+  getUserData : (req, res)=>{
+    const pipeline = [
+      {
+          _id: req.body.userid
+      },
+      {
+          _id: 1,
+          name: 1,
+          userId: 1,
+          address : 1,
+          isManufacturer : 1
+      }
+    ]
+
+    const pipeline2 = [
+      {
+        $match : {
+          isManufacturer: false
+        }
+      },
+      {
+        $project : {
+          _id: 1,
+          userId : 1,
+        }
+      }
+    ]
+    UserDb.findOne(...pipeline).then(item=>{
+      UserDb.aggregate(pipeline2).then(transporters=>{
+        OrderDb.countDocuments().then(count=>{
+          let response = {...item._doc, transporters, count}
+          res.status(200).json(response)
+        }).catch(err=>{
+          console.log(err);
+          res.status(400).json({
+            error: 'Bad request',
+          })   
+        })
+      }).catch(err=>{
+        console.log(err);
+        res.status(400).json({
+          error: 'Bad request',
+        })
+      })
+    }).catch(err=>{
+      console.log(err);
+      res.status(400).json({
+        error: 'Bad request'
+      })
+    })
+  }
 };

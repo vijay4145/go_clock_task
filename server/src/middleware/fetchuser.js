@@ -1,5 +1,6 @@
 var jwt = require('jsonwebtoken');
 const JWT_SECRET = 'Dooby';
+const userDb = require('../models/User');
 
 const fetchuser = (req, res, next)=>{
     const token = req.header('auth-token');
@@ -7,7 +8,12 @@ const fetchuser = (req, res, next)=>{
     try{
         const data = jwt.verify(token, JWT_SECRET);
         req.body.userid = data;
-        next();
+        userDb.findById(data).then(result=>{
+            if(result) next();
+            else res.status(401).json({
+                error: "Invalid token"
+            })
+        })
     }catch(error){
         res.status(401).send({
             error: "Invalid token"

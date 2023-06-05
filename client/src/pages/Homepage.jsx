@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import loading_animation from "../assets/loading.json";
 import Lottie from "lottie-react";
 import '../styles/Background.css';
+import { getUserData } from "../http";
+import { Manufacturer } from "../components/manufacturer/Manufacturer";
 
 export const Homepage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -12,7 +14,13 @@ export const Homepage = () => {
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     if (storedToken){
-      setIsLoading(false);
+      getUserData(storedToken).then(res=>{
+        setIsLoading(false);
+        if(res.status === 200) {
+          setData(res.data);
+        }
+        else navigate('/auth')
+      })
     }
     else navigate("/auth");
   }, []);
@@ -28,9 +36,9 @@ export const Homepage = () => {
           <div className="text-white  px-3 py-2">
             <h1 className="text-3xl font-bold">ɢᴏ ᴄʟᴏᴄᴋ</h1>
           </div>
-          <div className="bg4 text-white w-full rounded-lg px-5 py-2">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero, necessitatibus.
-          </div>
+          {
+            data.isManufacturer && <Manufacturer data={data}/> 
+          }
         </div>
         </>
       )}

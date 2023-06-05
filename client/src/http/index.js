@@ -2,9 +2,6 @@ import axios from "axios"
 
 
 const api = async (endpoint, data,method, token)=>{
-    // var idToken =  getAuth().currentUser;
-    // if(idToken) idToken = await idToken.getIdToken();
-    // if(!idToken) idToken = "bearer";
     const mainUrl = process.env.REACT_APP_BACKEND_URL;
         const instance = axios.create({
             baseURL: mainUrl,
@@ -37,6 +34,7 @@ const api = async (endpoint, data,method, token)=>{
 
 export const postUserDetails = async (data)=> await api('/auth/createuser', data, 'post', '')
 export const login = async (data)=> await api('/auth/login', data, 'post', '')
+export const getUserData = async (token)=> await api('/auth/userdata', '', 'get', token);
 export default api;
 
 
