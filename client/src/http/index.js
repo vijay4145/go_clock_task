@@ -35,6 +35,9 @@ const api = async (endpoint, data,method, token)=>{
 export const postUserDetails = async (data)=> await api('/auth/createuser', data, 'post', '')
 export const login = async (data)=> await api('/auth/login', data, 'post', '')
 export const getUserData = async (token)=> await api('/auth/userdata', '', 'get', token);
+
+export const addOrderToMongo = async (data, token)=> await api('/order/postOrder', data, 'post', token);
+
 export default api;
 
 

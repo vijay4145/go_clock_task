@@ -6,21 +6,20 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { AiFillCloseCircle } from "react-icons/ai";
+import { addOrderToMongo } from "../../http";
+import Lottie from 'lottie-react';
+import spinner from '../../assets/loading.json';
 
 export const AddOrder = ({ data }) => {
   const [orderId, setOrderId] = useState('ABC' + data.count);
   const [to, setTo] = useState("");
   const [from, setFrom] = useState("");
+  const [quantity, setQuantity] = useState(0);
   const [address, setAddress] = useState(data.address);
   const [transporter, setTransporter] = useState("");
-  const [transporterOptions, setTransporterOptions] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    let option = [];
-    data.transporters.map((ele) => {
-      option.push(ele.userId);
-    });
-    setTransporterOptions(option);
     console.log(data);
   }, []);
 
@@ -30,12 +29,28 @@ export const AddOrder = ({ data }) => {
 
   const addOrder = (e)=>{
     e.preventDefault();
+    setIsLoading(true);
+    let token = localStorage.getItem('token');
+    let json = {
+        order_id: orderId,
+        to: to,
+        from,
+        quantity,
+        address,
+        transporter
+    }
+    addOrderToMongo(json, token).then(res=>{
+        if(res.status === 200){
+            window.location.reload();
+        }
+    })
 
   }
 
   return (
     <>
-      <div className="bg-white p-5 rounded-lg shadow-xl min-w-[40vw]  flex flex-col gap-5 overflow-scroll max-h-[95vh]">
+      {isLoading ? <Lottie animationData={spinner} className="w-52 h-52 bg-white"/> :
+        <div className="bg-white p-5 rounded-lg shadow-xl min-w-[40vw]  flex flex-col gap-5 overflow-scroll max-h-[95vh]">
         <div className="flex justify-between">
           <h2 className="text-xl">Add Order.</h2>
           <AiFillCloseCircle
@@ -111,6 +126,27 @@ export const AddOrder = ({ data }) => {
           />
           <TextField
             required
+            value={quantity}
+            onChange={(e) => setQuantity(e.target.value)}
+            fullWidth
+            type="number"
+            label="Quantity"
+            variant="outlined"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton>
+                    <span>#</span>
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+          <TextField
+            required
             value={address}
             onChange={(e) => setAddress(e.target.value)}
             fullWidth
@@ -135,8 +171,10 @@ export const AddOrder = ({ data }) => {
             disablePortal
             fullWidth
             required
+            autoHighlight
+            getOptionLabel={(option)=>option.userId}
             onChange={(e,v)=>setTransporter(v)}
-            options={transporterOptions}
+            options={data.transporters}
             renderInput={(params) => (
               <TextField {...params} label="Transporter" />
             )}
@@ -146,7 +184,7 @@ export const AddOrder = ({ data }) => {
             Add Order
           </button>
         </form>
-      </div>
+      </div>}
     </>
   );
 };
