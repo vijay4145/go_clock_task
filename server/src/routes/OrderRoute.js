@@ -4,5 +4,6 @@ const controller = require('../controller/OrderController');
 const verifyToken = require('../middleware/fetchuser');
 
 router.post('/postOrder', verifyToken, controller.post);
+router.get('/getOrder', verifyToken, controller.get);
 
 module.exports = router;

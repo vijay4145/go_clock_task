@@ -32,7 +32,7 @@ const OrderSchema  = new mongoose.Schema({
         required : true
     },
     transporter : {
-        type: String,
+        type: Object,
         required: true       
     }
 });

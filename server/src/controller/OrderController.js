@@ -17,5 +17,23 @@ module.exports = {
             })
 
         })
+    },
+
+    get : (req, res)=>{
+        const pipeline = [
+            {
+                $match : {
+                    manufacturer_id: req.body.userid,
+                }
+            }
+        ]
+        OrderDb.aggregate(pipeline).then(items=>{
+            res.status(200).json(items);
+        }).catch(err=>{
+            console.log(err);
+            res.status(400).json({
+                error: 'Bad request'
+            })
+        })
     }
 }
