@@ -4,6 +4,8 @@ import { MdVisibilityOff, MdVisibility } from "react-icons/md";
 import { CgUser } from "react-icons/cg";
 import { login } from "../../http";
 import { MySnackbar } from "../MySnackbar";
+import spinner from '../../assets/loading.json';
+import Lottie from 'lottie-react';
 
 export const Login = ({ setIsLoggingIn }) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -44,7 +46,8 @@ export const Login = ({ setIsLoggingIn }) => {
 
     return (
       <>
-        <div className="flex flex-col gap-5">
+        {isLoading ? <Lottie animationData={spinner} className="h-52 w-52"/>:
+          <div className="flex flex-col gap-5">
           <div>
             <h1 className="text-4xl font-semibold">Login</h1>
             <p>After Logging in you can upload and see images</p>
@@ -115,7 +118,7 @@ export const Login = ({ setIsLoggingIn }) => {
               Create a account
             </div>
           </span>
-        </div>
+        </div>}
         <MySnackbar isOpen={isError} setOpen={setIsError} msg={errorMsg} severity='error'/>
       </>
     );
