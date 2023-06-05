@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const userRoute = require('./src/routes/UserRoute');
 const orderRoute = require('./src/routes/OrderRoute');
+const messageRoute = require('./src/routes/MessageRoute');
 require('./src/service/Dbconnection');
 
 app.use(express.json());
@@ -15,5 +16,6 @@ app.use(cors(corsOptions));
 
 app.use('/auth', userRoute);
 app.use('/order', orderRoute);
+app.use('/message', messageRoute)
 
 module.exports = app;

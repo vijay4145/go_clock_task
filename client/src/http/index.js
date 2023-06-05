@@ -40,6 +40,10 @@ export const addOrderToMongo = async (data, token)=> await api('/order/postOrder
 export const getOrderFromMongo = async (token)=> await api('/order/getOrder', '', 'get', token);
 export const getOrderFromMongoForTransporters = async (token)=> await api('/order/getOrderForTransporter', '', 'get', token);
 
+
+export const getMessages = async (to,token)=> await api('/message/get/'+to, '', 'get', token);
+export const sendMessages = async (data, token)=> await api('/message/add', data, 'post', token);
+
 export default api;
 
 
