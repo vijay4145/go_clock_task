@@ -38,7 +38,7 @@ export const Message = ({to, from}) => {
   
   return (
     <>
-    <div className='bg-white p-5 text-black rounded-xl shadow-lg flex flex-col gap-4 min-w-[40vw]'>
+    <div className='bg-white p-5 text-black rounded-xl shadow-lg flex flex-col gap-4 min-w-[40vw] max-h-[90vh] overflow-scroll'>
       <div className='flex justify-between'>
         <span className='flex gap-2 items-center'>
           <BiMessageAltDetail className='h-8 w-8'/>
