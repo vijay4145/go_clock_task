@@ -9,6 +9,7 @@ import { Manufacturer } from "../components/manufacturer/Manufacturer";
 import manufacture_icon from '../assets/manufacturerIcon.png';
 import transporter_icon from '../assets/transporterIcon.png';
 import { Transporter } from "../components/transporter/Transporter";
+import clock_icon from '../assets/clock.png';
 
 export const Homepage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -44,7 +45,10 @@ export const Homepage = () => {
         <div className="flex flex-col bg min-h-screen gap-2">
           <div className="text-white  px-3 py-2 flex justify-between items-center flex-wrap">
             <div className="w-full flex justify-between">
-              <h1 className="text-3xl font-bold">ɢᴏ ᴄʟᴏᴄᴋ</h1>
+              <span className="flex items-center ">
+                <img src={clock_icon} alt="" className="h-7 w-7"/>
+                <h1 className="text-2xl font-bold flex ">Go Clock.</h1>
+              </span>
               <button onClick={signout} className="border border-red-600 text-red-600 hover:bg-red-600 hover:text-white bg-white px-3 py-2 rounded-lg">Sign Out</button>
             </div>
             {data.isManufacturer ? <div className="flex items-center px-2 bg-blue-50  rounded-lg text-black">
