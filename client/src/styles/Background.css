@@ -12,3 +12,24 @@
 .box-shadow{
     box-shadow: 0 10px 50px -30px black;
 }
+
+.bg {
+    background: #7F8AEA;
+    background: linear-gradient(135deg, #7F8AEA, #8AAFF2);
+}
+
+.bg2 {
+background: #1026C7;
+background: linear-gradient(135deg, #1026C7, #1619EA);
+}
+
+.bg3 {
+background: #B2A9FC;
+background: linear-gradient(135deg, #B2A9FC, #B1D4F9);
+}
+
+.bg4{
+
+background: #C5AEFC;
+background: linear-gradient(135deg, #C5AEFC, #6ECED3);
+}

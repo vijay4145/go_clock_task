@@ -18,6 +18,10 @@ const NotesSchema  = new mongoose.Schema({
     date: {
         type: Date,
         default: Date.now
+    },
+    isManufacturer : {
+        type: Boolean,
+        required: true       
     }
 });
 

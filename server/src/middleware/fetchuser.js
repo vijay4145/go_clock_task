@@ -6,7 +6,7 @@ const fetchuser = (req, res, next)=>{
     if(!token) res.status(401).send({error: "not a valid token"});
     try{
         const data = jwt.verify(token, JWT_SECRET);
-        req.userid = data;
+        req.body.userid = data;
         next();
     }catch(error){
         res.status(401).send({

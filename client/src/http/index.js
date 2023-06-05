@@ -1,7 +1,7 @@
 import axios from "axios"
 
 
-const api = async (endpoint, data,method)=>{
+const api = async (endpoint, data,method, token)=>{
     // var idToken =  getAuth().currentUser;
     // if(idToken) idToken = await idToken.getIdToken();
     // if(!idToken) idToken = "bearer";
@@ -11,7 +11,7 @@ const api = async (endpoint, data,method)=>{
             headers: {
                 "Content-Type": "application/json",
                 Accept: "application/json",
-                // Authorization: idToken
+                'auth-token': token
             }
         })
 
@@ -35,8 +35,8 @@ const api = async (endpoint, data,method)=>{
       
     
 
-export const postUserDetails = async (data)=> await api('/auth/createuser', data, 'post')
-export const login = async (data)=> await api('/auth/login', data, 'post')
+export const postUserDetails = async (data)=> await api('/auth/createuser', data, 'post', '')
+export const login = async (data)=> await api('/auth/login', data, 'post', '')
 export default api;
 
 
