@@ -1,6 +1,7 @@
-import { Checkbox, IconButton, InputAdornment, TextField } from "@mui/material";
+import { Checkbox, FormControlLabel, IconButton, InputAdornment, Radio, RadioGroup, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { MdVisibilityOff, MdVisibility } from "react-icons/md";
+import { ImLocation2 } from 'react-icons/im';
 import { AiOutlineUser } from "react-icons/ai";
 import { CgUser } from "react-icons/cg";
 import { postUserDetails } from "../../http";
@@ -16,6 +17,8 @@ export const SignUp = ({ setIsLoggingIn }) => {
   const [userId, setUserId] = useState('');
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
+  const [isManufacturer, setIsManufacturer] = useState('true');
+  const [address, setAddress] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [errorMsg, setErrorMsg] = useState('Something went wrong');
@@ -26,7 +29,11 @@ export const SignUp = ({ setIsLoggingIn }) => {
     let json = {
       name : userName,
       userId,
-      password
+      password,
+      isManufacturer
+    }
+    if(address && isManufacturer === 'true'){
+      json = {...json, address: address}
     }
     postUserDetails(json).then(res=>{
       console.log(res.status);
@@ -119,6 +126,44 @@ export const SignUp = ({ setIsLoggingIn }) => {
               }}
             />
           </span>
+
+          <span className="flex flex-row">
+
+          <RadioGroup
+          className="flex flex-wrap"
+          value={isManufacturer}
+          onChange={(e)=>{console.log(e.target.value); setIsManufacturer(e.target.value)}}
+            >
+          <FormControlLabel value='false' control={<Radio />} label="Transporter" />
+          <FormControlLabel value='true' control={<Radio />} label="Manufacturer" />
+          </RadioGroup>
+          </span>
+
+          {isManufacturer === 'true' && <span className="flex flex-col gap-1">
+            <TextField
+              required
+              fullWidth
+              value={address}
+              onChange={(e)=>setAddress(e.target.value)}
+              type="text"
+              label="Address"
+              variant="outlined"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton>
+                      <ImLocation2/>
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </span>
+          }
+
 
           <span className="flex justify-center">
             <button className="bg-blue-500 px-3 py-2 text-white rounded-lg hover:shadow-lg hover:bg-blue-600">

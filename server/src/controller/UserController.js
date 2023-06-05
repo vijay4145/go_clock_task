@@ -5,6 +5,12 @@ const UserDb = require("../models/User");
 
 module.exports = {
   post: async (req, res) => {
+    if(req.body.isManufacturer === 'true'){
+      if(!req.body.hasOwnProperty('address'))
+        res.status(400).json({
+          error: 'missing address',
+        })
+    }
     const salt = bcrypt.genSaltSync(10);
     const secured_password = bcrypt.hashSync(req.body.password, salt);
     req.body.password = secured_password;

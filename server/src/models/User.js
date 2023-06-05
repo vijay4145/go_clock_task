@@ -19,6 +19,9 @@ const NotesSchema  = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
+    address : {
+        type: String,
+    },
     isManufacturer : {
         type: Boolean,
         required: true       
