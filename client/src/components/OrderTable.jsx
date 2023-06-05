@@ -6,6 +6,7 @@ import { LoadingDataForTable } from "./LoadingDataForTable";
 export const OrderTable = ({
   isLoading,
   data,
+  isManufacturer
 }) => {
   AOS.init({
     duration: 400,
@@ -33,7 +34,7 @@ export const OrderTable = ({
                 Address
               </th>
               <th scope="col" className="px-6 py-3">
-                Transporter
+                {isManufacturer ? 'Transporter':'Manufacturer'}
               </th>
               <th scope="col" className="px-6 py-3">
                 Message
@@ -67,10 +68,10 @@ export const OrderTable = ({
                         {ele.address}
                     </td>
                     <td className="px-6 py-4">
-                        {ele.transporter.userId}
+                        {isManufacturer ? ele.transporter.userId:ele.manufacturer_userId}
                     </td>
                     <td>
-                        <div className="px-2 py-2 max-w-fit rounded hover:bg-blue-600 hover:text-white border border-blue-600 text-blue-600 flex items-center gap-1">
+                        <div className="cursor-pointer px-2 py-2 max-w-fit rounded hover:bg-blue-600 hover:text-white border border-blue-600 text-blue-600 flex items-center gap-1">
                             <BiMessageMinus className="h-5 w-5"/>
                             <button>Message</button> 
                         </div>

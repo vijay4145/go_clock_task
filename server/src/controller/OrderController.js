@@ -20,10 +20,29 @@ module.exports = {
     },
 
     get : (req, res)=>{
+        // getOrderList  for manucfacturers
         const pipeline = [
             {
                 $match : {
                     manufacturer_id: req.body.userid,
+                }
+            }
+        ]
+        OrderDb.aggregate(pipeline).then(items=>{
+            res.status(200).json(items);
+        }).catch(err=>{
+            console.log(err);
+            res.status(400).json({
+                error: 'Bad request'
+            })
+        })
+    },
+
+    getOrderForTransporter : (req, res)=>{
+        const pipeline = [
+            {
+                $match : {
+                    'transporter._id': req.body.userid,
                 }
             }
         ]

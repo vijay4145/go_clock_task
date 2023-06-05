@@ -38,6 +38,7 @@ export const getUserData = async (token)=> await api('/auth/userdata', '', 'get'
 
 export const addOrderToMongo = async (data, token)=> await api('/order/postOrder', data, 'post', token);
 export const getOrderFromMongo = async (token)=> await api('/order/getOrder', '', 'get', token);
+export const getOrderFromMongoForTransporters = async (token)=> await api('/order/getOrderForTransporter', '', 'get', token);
 
 export default api;
 
